@@ -65,6 +65,40 @@
     ]
   }
   {
+    'begin': '^(\\s*)(script)(?=[.#(\\s])((?![^\\n]*type=)|(?=[^\\n]*text/coffeescript))'
+    'beginCaptures':
+      '2':
+        'name': 'entity.name.tag.script.jade'
+    'comment': 'Script tag with CoffeeScript code.'
+    'end': '^(?!(\\1\\s)|\\s*$)'
+    'name': 'source.script.jade'
+    'patterns': [
+      {
+        'begin': '\\G(?=\\()'
+        'end': '$'
+        'name': 'stuff.tag.script.jade'
+        'patterns': [
+          {
+            'include': '#tag_attributes'
+          }
+        ]
+      }
+      {
+        'begin': '\\G(?=[.#])'
+        'end': '$'
+        'name': 'stuff.tag.script.jade'
+        'patterns': [
+          {
+            'include': '#complete_tag'
+          }
+        ]
+      }
+      {
+        'include': 'source.coffee'
+      }
+    ]
+  }
+  {
     'begin': '^(\\s*)(style)(?=[.#(\\s])'
     'beginCaptures':
       '2':
