@@ -65,7 +65,7 @@
     ]
   }
   {
-    'begin': '^(\\s*)(script)(?=[.#(\\s])((?![^\\n]*type=)|(?=[^\\n]*text/coffeescript))'
+    'begin': '^(\\s*)(script)\\(type=.text/coffeescript.\\)\\.$'
     'beginCaptures':
       '2':
         'name': 'entity.name.tag.script.jade'
@@ -311,6 +311,9 @@
       }
       {
         'include': '#case_conds'
+      }
+      {
+        'include': '#coffeescript'
       }
       {
         'begin': '\\|'
@@ -921,4 +924,38 @@
         'include': 'source.js'
       }
     ]
+  'coffeescript':
+    'begin': '^(\\s*)(script)\\(type=.text/coffeescript.\\)\\.$'
+    'beginCaptures':
+      '2':
+        'name': 'entity.name.tag.script.jade'
+    'comment': 'Script tag with CoffeeScript code.'
+    'end': '^(?!(\\1\\s)|\\s*$)'
+    'name': 'source.script.jade'
+    'patterns': [
+      {
+        'begin': '\\G(?=\\()'
+        'end': '$'
+        'name': 'stuff.tag.script.jade'
+        'patterns': [
+          {
+            'include': '#tag_attributes'
+          }
+        ]
+      }
+      {
+        'begin': '\\G(?=[.#])'
+        'end': '$'
+        'name': 'stuff.tag.script.jade'
+        'patterns': [
+          {
+            'include': '#complete_tag'
+          }
+        ]
+      }
+      {
+        'include': 'source.coffee'
+      }
+    ]
+
 'scopeName': 'source.jade'
